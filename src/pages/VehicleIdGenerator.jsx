@@ -20,11 +20,14 @@ const VehicleIdGenerator = () => {
     const printRef = useRef();
 
     const generateQRCode = (text, size = 120) => {
+        const baseUrl = 'https://benitha200.github.io/vehicle-registration/#/vehicle-verification';
+        const fullUrl = `${baseUrl}?q=${encodeURIComponent(text)}`;
         return new Promise((resolve) => {
-            const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=${size}x${size}&data=${encodeURIComponent(text)}&bgcolor=ffffff&color=000000`;
+            const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=${size}x${size}&data=${encodeURIComponent(fullUrl)}&bgcolor=ffffff&color=000000`;
             resolve(qrUrl);
         });
     };
+
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -220,11 +223,11 @@ const VehicleIdGenerator = () => {
 
         return (
             <div className="relative bg-gradient-to-br from-purple-200 via-purple-300 to-purple-400 border border-purple-500 overflow-hidden shadow-lg rounded-lg"
-                 style={{
-                width: '650px',
-                height: '500px',
-                fontFamily: 'Arial, sans-serif'
-            }}>
+                style={{
+                    width: '650px',
+                    height: '500px',
+                    fontFamily: 'Arial, sans-serif'
+                }}>
 
                 {/* Complex background pattern */}
                 <div className="absolute inset-0 opacity-20">
@@ -467,15 +470,15 @@ const VehicleIdGenerator = () => {
                     </div>
                 </div>
 
-                <br/>
+                <br />
                 <span className='text-2xl m-3 h2 uppercase'> Print Preview</span>
-                <br/>
-                
+                <br />
+
                 {/* Print Layout */}
                 <div ref={printRef} className="print-only">
                     <div className="page-break">
                         <CardFront />
-                        <br/>
+                        <br />
                     </div>
                     <div className="page-break">
                         <CardBack />
