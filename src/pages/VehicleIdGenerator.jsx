@@ -109,78 +109,78 @@ const VehicleIdGenerator = () => {
                         <div className="text-sm font-semibold text-black-700">
                             IDENTIFICATION DU PROPRIÉTAIRE
                         </div>
-                       
+
                     </div>
 
                     {/* Main content grid */}
                     <div>
                         <div className='text-center'>
-                             <div className="text-sm text-black-600 mt-1 font-bold">
-                            DGI00/2022/001990594
-                        </div>
-                        </div>
-                      <div className="grid grid-cols-3 gap-4 mb-4">
-                        {/* Left column - Owner info */}
-                        <div className="col-span-2 space-y-2 p-4">
-                            <div className="flex">
-                                <span className="text-sm text-black-900 uppercase">Noms (ou Rais. Soc.):</span>
-                                <span className="text-sm font-semibold text-black">{formData.proprietaire || 'Mr BAGAYAMUKWE TADJI GUSTAVE'}</span>
-                            </div>
-                            <div className="flex">
-                                <span className="text-sm text-black-900 uppercase">Adresse Phys:</span>
-                                <span className="text-sm font-semibold text-black">{formData.adresse || 'DU PLATEAU Q/Nyalukemba CIBANDA BUKAVU'}</span>
-                            </div>
-                            <div className="flex">
-                                <span className="text-sm  text-black-900 uppercase">N° Impôt:</span>
-                                <span className="text-sm font-semibold text-black">{formData.numeroImmatriculation || 'A2036989D'}</span>
-                            </div>
-                            <div className="flex">
-                                <span className="text-sm uppercase text-black-900">Date de 1ère Mise en Circ.:</span>
-                                <span className="text-sm font-semibold text-black">{formData.dateImmatriculation || '2022'}</span>
-                            </div>
-                            <div className="flex">
-                                <span className="text-sm uppercase text-black-900">Usage:</span>
-                                <span className="text-sm font-semibold text-black">{formData.usage}</span>
-                            </div>
-                            <div className="flex">
-                                <span className="text-sm uppercase text-black-900">N° Plaque:</span>
-                                <span className="text-sm font-semibold text-black">{formData.numeroPlaque || '0830AE22'}</span>
-                            </div>
-                            <div className="mt-4">
-                                <span className="text-sm text-black">Fait à Bukavu, le {new Date().toLocaleDateString('fr-FR')}</span>
+                            <div className="text-sm text-black-600 mt-1 font-bold">
+                                DGI00/2022/001990594
                             </div>
                         </div>
+                        <div className="grid grid-cols-3 gap-4 mb-4">
+                            {/* Left column - Owner info */}
+                            <div className="col-span-2 space-y-1 p-4">
+                                <div className="flex">
+                                    <span className="text-sm text-black-900 uppercase">Noms (ou Rais. Soc.):</span>
+                                    <span className="text-sm font-semibold text-black">{formData.proprietaire || 'Mr BAGAYAMUKWE TADJI GUSTAVE'}</span>
+                                </div>
+                                <div className="flex">
+                                    <span className="text-sm text-black-900 uppercase">Adresse Phys:</span>
+                                    <span className="text-sm font-semibold text-black">{formData.adresse || 'DU PLATEAU Q/Nyalukemba CIBANDA BUKAVU'}</span>
+                                </div>
+                                <div className="flex">
+                                    <span className="text-sm  text-black-900 uppercase">N° Impôt:</span>
+                                    <span className="text-sm font-semibold text-black">{formData.numeroImmatriculation || 'A2036989D'}</span>
+                                </div>
+                                <div className="flex">
+                                    <span className="text-sm uppercase text-black-900">Date de 1ère Mise en Circ.:</span>
+                                    <span className="text-sm font-semibold text-black">{formData.dateImmatriculation || '2022'}</span>
+                                </div>
+                                <div className="flex">
+                                    <span className="text-sm uppercase text-black-900">Usage:</span>
+                                    <span className="text-sm font-semibold text-black">{formData.usage}</span>
+                                </div>
+                                <div className="flex">
+                                    <span className="text-sm uppercase text-black-900">N° Plaque:</span>
+                                    <span className="text-sm font-semibold text-black">{formData.numeroPlaque || '0830AE22'}</span>
+                                </div>
+                                <div className="mt-4">
+                                    <span className="text-sm text-black">Fait à Bukavu, le {new Date().toLocaleDateString('fr-FR')}</span>
+                                </div>
+                            </div>
 
-                        {/* Right column - QR code and stamp */}
-                        <div className="flex flex-col items-center justify-between">
-                            {/* QR Code */}
-                            <div className="flex flex-col items-center mb-4">
-                                <div className="w-28 h-28 bg-white border border-fuchsia-800 flex items-center justify-center p-1">
-                                    {qrCodeUrl ? (
-                                        <img
-                                            src={qrCodeUrl}
-                                            alt="QR Code"
-                                            className="w-full h-full object-contain"
-                                            crossOrigin="anonymous"
-                                        />
-                                    ) : (
-                                        <div className="w-full h-full bg-gray-200 flex items-center justify-center text-gray-500 text-sm">
-                                            QR
-                                        </div>
-                                    )}
+                            {/* Right column - QR code and stamp */}
+                            <div className="flex flex-col items-center justify-between">
+                                {/* QR Code */}
+                                <div className="flex flex-col items-center mb-6">
+                                    <div className="w-28 h-28 bg-white border border-fuchsia-800 flex items-center justify-center p-1">
+                                        {qrCodeUrl ? (
+                                            <img
+                                                src={qrCodeUrl}
+                                                alt="QR Code"
+                                                className="w-full h-full object-contain"
+                                                crossOrigin="anonymous"
+                                            />
+                                        ) : (
+                                            <div className="w-full h-full bg-gray-200 flex items-center justify-center text-gray-500 text-sm">
+                                                QR
+                                            </div>
+                                        )}
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="flex flex-col items-center mb-4">
-                                <div className="w-20 h-20  flex items-center justify-center p-1">
-                                    <div className="absolute flex items-center justify-center opacity-60">
-                                    <img src={dgiLogo} className="w-32 h-32" alt="DGI in stamp" />
-                                </div>
+
+                                {/* DGI Logo */}
+                                <div className="flex flex-col items-center">
+                                    <div className="w-32 h-32 flex items-center justify-center p-1">
+                                        <img src={dgiLogo} className="w-full h-full opacity-60" alt="DGI in stamp" />
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>  
                     </div>
-                    
+
 
                     {/* Footer */}
                     <div className="mt-8 text-center">
