@@ -1,7 +1,7 @@
+
 import React, { useState, useRef, useEffect } from 'react';
-import { Car, FileText, Printer, RefreshCw } from 'lucide-react';
-import lion from './../assets/lion.png'
-import DGI from './../assets/DGI.png'
+import { Car, FileText, LockIcon, Printer, RefreshCw, User } from 'lucide-react';
+import dgiLogo from './../assets/DGI.png'
 
 const VehicleIdGenerator = () => {
     const [formData, setFormData] = useState({
@@ -13,11 +13,23 @@ const VehicleIdGenerator = () => {
         couleur: '',
         puissanceFiscale: '',
         responsableService: '',
-        signature: null
+        signature: null,
+        proprietaire: '',
+        adresse: '',
+        numeroImmatriculation: '',
+        numeroPlaque: '',
+        dateImmatriculation: '',
+        usage: 'Personnel'
     });
 
     const [signaturePreview, setSignaturePreview] = useState(null);
     const printRef = useRef();
+
+    // Lion logo placeholder (you'll need to replace with actual image)
+    const lionLogo = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='50' font-size='40' text-anchor='middle' x='50'%3E🦁%3C/text%3E%3C/svg%3E";
+
+    // DGI logo placeholder (you'll need to replace with actual image)  
+    // const dgiLogo = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='40' fill='%23666'/%3E%3Ctext y='55' font-size='20' text-anchor='middle' x='50' fill='white'%3EDGI%3C/text%3E%3C/svg%3E";
 
     const generateQRCode = (text, size = 120) => {
         const baseUrl = 'https://benitha200.github.io/vehicle-registration/#/vehicle-verification';
@@ -27,7 +39,6 @@ const VehicleIdGenerator = () => {
             resolve(qrUrl);
         });
     };
-
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -55,408 +66,271 @@ const VehicleIdGenerator = () => {
     const handlePrint = () => {
         window.print();
     };
-
-    const CardFront = () => (
-        <div className="relative bg-gradient-to-br from-purple-200 via-purple-300 to-purple-400 border border-purple-500 overflow-hidden shadow-lg rounded-lg"
-            style={{
-                width: '650px',
-                height: '500px',
-                fontFamily: 'Arial, sans-serif'
-            }}>
-
-            {/* Enhanced background patterns */}
-            <div className="absolute inset-0 opacity-20">
-                <svg width="100%" height="100%">
-                    <defs>
-                        {/* Subtle diagonal lines */}
-                        <pattern id="diagonal-lines" patternUnits="userSpaceOnUse" width="20" height="20">
-                            <path d="M0,20 L20,0" stroke="#8b5cf6" strokeWidth="0.8" opacity="0.3" />
-                        </pattern>
-
-                        {/* Fine dot grid */}
-                        <pattern id="dots" patternUnits="userSpaceOnUse" width="10" height="10">
-                            <circle cx="5" cy="5" r="0.5" fill="#7c3aed" opacity="0.2" />
-                        </pattern>
-
-                        {/* Diamond pattern */}
-                        <pattern id="diamonds" patternUnits="userSpaceOnUse" width="15" height="15">
-                            <path d="M0,7.5 L7.5,0 L15,7.5 L7.5,15 Z" fill="none" stroke="#6d28d9" strokeWidth="0.5" opacity="0.2" />
-                        </pattern>
-
-                        {/* Wavy lines */}
-                        <pattern id="waves" patternUnits="userSpaceOnUse" width="40" height="20">
-                            <path d="M0,10 Q10,15 20,10 T40,10" fill="none" stroke="#9333ea" strokeWidth="0.5" opacity="0.1" />
-                        </pattern>
-                    </defs>
-                    <rect width="100%" height="100%" fill="url(#diagonal-lines)" />
-                    <rect width="100%" height="100%" fill="url(#dots)" />
-                    <rect width="100%" height="100%" fill="url(#diamonds)" />
-                    <rect width="100%" height="100%" fill="url(#waves)" />
-                </svg>
-            </div>
-
-            {/* Watermark pattern */}
-            <div className="absolute inset-0 opacity-10">
-                <div className="w-full h-full flex items-center justify-center">
-                    <div className="text-6xl font-bold text-purple-800 transform rotate-45 select-none">
-                        <img src={lion} />
-                    </div>
-                </div>
-            </div>
-
-            {/* Header section */}
-            <div className="relative text-black p-3 flex items-center justify-between">
-                <div className="text-lg font-bold tracking-wide">IDENTIFICATION DU VEHICULE</div>
-
-                {/* Larger circular logo on the right with blend effect */}
-                <div className="bg-opacity-30 rounded-full flex items-center justify-center border-2 border-purple-300 shadow-inner backdrop-blur-sm">
-                    <img src={DGI} className="w-32 h-32 opacity-80" />
-                </div>
-            </div>
-
-            <div className="relative z-10">
-                <div className="grid grid-cols-2 gap-6 p-4 relative z-20">
-                    <div className="space-y-3">
-                        <div className="flex items-start">
-                            <span className="font-bold text-sm w-32 text-purple-900">MARQUE & TYPE:</span>
-                            <span className="text-sm font-medium text-black">{formData.marqueType || 'TOYOTA LAND CRUISER'}</span>
-                        </div>
-                        <div className="flex items-start">
-                            <span className="font-bold text-sm w-32 text-purple-900">GENRE:</span>
-                            <span className="text-sm font-medium text-black">{formData.genre || 'JEEP'}</span>
-                        </div>
-                        <div className="flex items-start">
-                            <span className="font-bold text-sm w-32 text-purple-900">N° CHASSIS:</span>
-                            <span className="text-sm font-medium text-black">{formData.numeroChassis || 'JTEBZ29J400012394'}</span>
-                        </div>
-                        <div className="flex items-start">
-                            <span className="font-bold text-sm w-32 text-purple-900">N° MOTEUR:</span>
-                            <span className="text-sm font-medium text-black">{formData.numeroMoteur || ''}</span>
-                        </div>
-                    </div>
-
-                    <div className="space-y-3">
-                        <div className="flex items-start">
-                            <span className="font-bold text-sm w-40 text-purple-900">ANNEE DE FABRICATION:</span>
-                            <span className="text-sm font-medium text-black">{formData.anneeFabrication || '2008'}</span>
-                        </div>
-                        <div className="flex items-start">
-                            <span className="font-bold text-sm w-40 text-purple-900">COULEUR:</span>
-                            <span className="text-sm font-medium text-black">{formData.couleur || 'BLANCHE'}</span>
-                        </div>
-                        <div className="flex items-start">
-                            <span className="font-bold text-sm w-40 text-purple-900">PUISSANCE FISCALE:</span>
-                            <span className="text-sm font-medium text-black">{formData.puissanceFiscale || '14'}</span>
-                        </div>
-                    </div>
-                </div>
-
-                {/* Important remarks section */}
-                <div className="mt-1">
-                    <div className="text-black text-center font-bold text-sm border-b-2 border-t-2 border-purple-800">
-                        REMARQUES IMPORTANTES
-                    </div>
-                    <div className="bg-white bg-opacity-90 border-2 border-purple-500 p-3 relative m-3">
-
-                        {/* Background pattern for remarks section */}
-                        <div className="absolute inset-0 opacity-5">
-                            <svg width="100%" height="100%">
-                                <defs>
-                                    <pattern id="remarks-pattern" patternUnits="userSpaceOnUse" width="10" height="10">
-                                        <circle cx="5" cy="5" r="1" fill="#8b5cf6" />
-                                    </pattern>
-                                </defs>
-                                <rect width="100%" height="100%" fill="url(#remarks-pattern)" />
-                            </svg>
-                        </div>
-
-                        <div className="relative flex flex-col z-10 text-xs text-black">
-                            <div className="flex">
-                                {/* Left column (70%) */}
-                                <div className="w-[70%] pr-4">
-                                    <p className="mb-2">
-                                        En cas de vente du présent du véhicule, le cessionnaire et le cédant
-                                        doivent se rendre dans nos services avec: attestation de vente,
-                                        cette carte d'identification, la carte d'assurance, identité
-                                        complète du Responsable du Service de Transport.
-                                        Cette carte doit être REMISE de la main à la main du cédant au
-                                        cessionnaire lors de la cession.
-                                        A cette date, le cessionnaire doit à avoir validé et présenté certifié aux
-                                        fins de vérification, cette carte et les numéros du coupé et du
-                                        châssis pour éviter le trafic clandestin.
-                                    </p>
-                                </div>
-                                <hr size={3} />
-
-                                {/* Right column (30%) with small DGI logo */}
-                                <div className="w-[30%] relative">
-                                    {/* Small DGI logo in signature area */}
-                                    <div className="absolute top-0 right-0 opacity-10">
-                                        <img src={DGI} size={1} />
-                                    </div>
-
-                                    <div className="flex justify-between items-end mt-4">
-                                        <div className="flex-1">
-                                            <div className="text-sm font-bold mb-1 text-purple-900">Responsable du service</div>
-                                            <div className="text-lg font-bold text-black mb-2">{formData.responsableService || 'CHIRIBAGULA'}</div>
-                                            <div className="w-32 h-12 border-2 border-purple-400 bg-white flex items-center justify-center relative">
-                                                {formData.signature ? (
-                                                    <img src={formData.signature} alt="Signature" className="w-full h-full object-contain p-1" />
-                                                ) : (
-                                                    <div className="text-xs text-gray-500 italic">Signature</div>
-                                                )}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    );
-
-    // const CardFront = () => (
-    //     <div className="relative bg-gradient-to-br from-purple-200 via-purple-300 to-purple-400 border border-purple-500 overflow-hidden shadow-lg rounded-lg"
-    //         style={{
-    //             width: '650px',
-    //             height: '500px',
-    //             fontFamily: 'Arial, sans-serif'
-    //         }}>
-
-    //         {/* Complex background pattern overlay */}
-    //         <div className="absolute inset-0 opacity-30">
-    //             <svg width="100%" height="100%">
-    //                 <defs>
-    //                     <pattern id="diagonal-lines" patternUnits="userSpaceOnUse" width="4" height="4">
-    //                         <path d="M0,4 L4,0" stroke="#8b5cf6" strokeWidth="0.5" opacity="0.3" />
-    //                     </pattern>
-    //                     <pattern id="dots" patternUnits="userSpaceOnUse" width="8" height="8">
-    //                         <circle cx="4" cy="4" r="0.5" fill="#8b5cf6" opacity="0.2" />
-    //                     </pattern>
-    //                     <pattern id="crosshatch" patternUnits="userSpaceOnUse" width="6" height="6">
-    //                         <path d="M0,0 L6,6 M0,6 L6,0" stroke="#7c3aed" strokeWidth="0.3" opacity="0.4" />
-    //                     </pattern>
-    //                 </defs>
-    //                 <rect width="100%" height="100%" fill="url(#diagonal-lines)" />
-    //                 <rect width="100%" height="100%" fill="url(#dots)" />
-    //                 <rect width="100%" height="100%" fill="url(#crosshatch)" />
-    //             </svg>
-    //         </div>
-
-    //         {/* Watermark pattern */}
-    //         <div className="absolute inset-0 opacity-10">
-    //             <div className="w-full h-full flex items-center justify-center">
-    //                 <div className="text-6xl font-bold text-purple-800 transform rotate-45 select-none">
-    //                     <img src={lion} />
-    //                 </div>
-    //             </div>
-    //         </div>
-
-    // {/* Header section */}
-    // <div className="relative text-black p-3 flex items-center justify-between">
-    //     <div className="text-lg font-bold tracking-wide">IDENTIFICATION DU VEHICULE</div>
-
-    //     {/* Larger circular logo on the right with blend effect */}
-    //     <div className="bg-opacity-30 rounded-full flex items-center justify-center border-2 border-purple-300 shadow-inner backdrop-blur-sm">
-    //         <img src={DGI} className="w-32 h-32 opacity-80" />
-    //     </div>
-    // </div>
-
-    //         <div className="relative z-10">
-
-    //             <div className="grid grid-cols-2 gap-6 p-4 relative z-20">
-    //                 <div className="space-y-3">
-    //                     <div className="flex items-start">
-    //                         <span className="font-bold text-sm w-32 text-purple-900">MARQUE & TYPE:</span>
-    //                         <span className="text-sm font-medium text-black">{formData.marqueType || 'TOYOTA LAND CRUISER'}</span>
-    //                     </div>
-    //                     <div className="flex items-start">
-    //                         <span className="font-bold text-sm w-32 text-purple-900">GENRE:</span>
-    //                         <span className="text-sm font-medium text-black">{formData.genre || 'JEEP'}</span>
-    //                     </div>
-    //                     <div className="flex items-start">
-    //                         <span className="font-bold text-sm w-32 text-purple-900">N° CHASSIS:</span>
-    //                         <span className="text-sm font-medium text-black">{formData.numeroChassis || 'JTEBZ29J400012394'}</span>
-    //                     </div>
-    //                     <div className="flex items-start">
-    //                         <span className="font-bold text-sm w-32 text-purple-900">N° MOTEUR:</span>
-    //                         <span className="text-sm font-medium text-black">{formData.numeroMoteur || ''}</span>
-    //                     </div>
-    //                 </div>
-
-    //                 <div className="space-y-3">
-    //                     <div className="flex items-start">
-    //                         <span className="font-bold text-sm w-40 text-purple-900">ANNEE DE FABRICATION:</span>
-    //                         <span className="text-sm font-medium text-black">{formData.anneeFabrication || '2008'}</span>
-    //                     </div>
-    //                     <div className="flex items-start">
-    //                         <span className="font-bold text-sm w-40 text-purple-900">COULEUR:</span>
-    //                         <span className="text-sm font-medium text-black">{formData.couleur || 'BLANCHE'}</span>
-    //                     </div>
-    //                     <div className="flex items-start">
-    //                         <span className="font-bold text-sm w-40 text-purple-900">PUISSANCE FISCALE:</span>
-    //                         <span className="text-sm font-medium text-black">{formData.puissanceFiscale || '14'}</span>
-    //                     </div>
-    //                 </div>
-    //             </div>
-
-    //             {/* Important remarks section with background DGI watermark */}
-    //             <div className="mt-1">
-    //                 <div className="text-black text-center font-bold text-sm border-b-2 border-t-2 border-purple-800">
-    //                     REMARQUES IMPORTANTES
-    //                 </div>
-    //                 <div className="bg-white bg-opacity-90 border-2 border-purple-500 p-3 relative m-4">
-
-    //                     {/* Background pattern for remarks section */}
-    //                     <div className="absolute inset-0 opacity-5">
-    //                         <svg width="100%" height="100%">
-    //                             <defs>
-    //                                 <pattern id="remarks-pattern" patternUnits="userSpaceOnUse" width="10" height="10">
-    //                                     <circle cx="5" cy="5" r="1" fill="#8b5cf6" />
-    //                                 </pattern>
-    //                             </defs>
-    //                             <rect width="100%" height="100%" fill="url(#remarks-pattern)" />
-    //                         </svg>
-    //                     </div>
-
-    //                     <div className="relative flex flex-col z-10 text-xs text-black">
-    //                         <div className="flex">
-    //                             {/* Left column (70%) */}
-    //                             <div className="w-[70%] pr-4">
-    //                                 <p className="mb-2">
-    //                                     En cas de vente du présent du véhicule, le cessionnaire et le cédant
-    //                                     doivent se rendre dans nos services avec: attestation de vente,
-    //                                     cette carte d'identification, la carte d'assurance, identité
-    //                                     complète du Responsable du Service de Transport.
-    //                                     Cette carte doit être REMISE de la main à la main du cédant au
-    //                                     cessionnaire lors de la cession.
-    //                                     A cette date, le cessionnaire doit à avoir validé et présenté certifié aux
-    //                                     fins de vérification, cette carte et les numéros du coupé et du
-    //                                     châssis pour éviter le trafic clandestin.
-    //                                 </p>
-    //                             </div>
-    //                             <hr size={3} />
-
-    //                             {/* Right column (30%) with small DGI logo */}
-    //                             <div className="w-[30%] relative">
-    //                                 {/* Small DGI logo in signature area */}
-    //                                 <div className="absolute top-0 right-0 opacity-10">
-    //                                     <img
-    //                                         src={DGI}
-    //                                         className="w-12 h-12 transform rotate-12"
-    //                                         alt="Small DGI Logo"
-    //                                     />
-    //                                 </div>
-
-    //                                 <div className="flex justify-between items-end mt-4">
-    //                                     <div className="flex-1">
-    //                                         <div className="text-sm font-bold mb-1 text-purple-900">Responsable du service</div>
-    //                                         <div className="text-lg font-bold text-black mb-2">{formData.responsableService || 'CHIRIBAGULA'}</div>
-    //                                         <div className="w-32 h-12 border-2 border-purple-400 bg-white flex items-center justify-center relative">
-    //                                             {formData.signature ? (
-    //                                                 <img src={formData.signature} alt="Signature" className="w-full h-full object-contain p-1" />
-    //                                             ) : (
-    //                                                 <div className="text-xs text-gray-500 italic">Signature</div>
-    //                                             )}
-    //                                         </div>
-    //                                     </div>
-    //                                 </div>
-    //                             </div>
-    //                         </div>
-    //                     </div>
-    //                 </div>
-    //             </div>
-    //         </div>
-    //     </div>
-    // );
-
-    const CardBack = () => {
+    const CardFront = () => {
         const [qrCodeUrl, setQrCodeUrl] = useState('');
 
         useEffect(() => {
             const vehicleInfo = `${formData.marqueType || 'TOYOTA LAND CRUISER'} - ${formData.numeroChassis || 'JTEBZ29J400012394'}`;
-            generateQRCode(vehicleInfo, 120).then(qrUrl => {
+            generateQRCode(vehicleInfo, 80).then(qrUrl => {
                 setQrCodeUrl(qrUrl);
             });
         }, [formData]);
 
         return (
-            <div className="relative bg-gradient-to-br from-purple-200 via-purple-300 to-purple-400 border border-purple-500 overflow-hidden shadow-lg rounded-lg"
+            <div className="relative bg-gradient-to-br from-fuchsia-100 via-fuchsia-200 to-fuchsia-100 overflow-hidden shadow-lg rounded-xl"
                 style={{
                     width: '650px',
-                    height: '500px',
+                    height: '450px',
                     fontFamily: 'Arial, sans-serif'
                 }}>
 
-                {/* Complex background pattern */}
-                <div className="absolute inset-0 opacity-20">
+                {/* Background pattern */}
+                <div className="absolute inset-0 opacity-15">
                     <svg width="100%" height="100%">
                         <defs>
-                            <pattern id="back-diagonal" patternUnits="userSpaceOnUse" width="8" height="8">
-                                <path d="M0,0 L8,8 M0,8 L8,0" stroke="#7c3aed" strokeWidth="0.4" />
-                            </pattern>
-                            <pattern id="back-grid" patternUnits="userSpaceOnUse" width="12" height="12">
-                                <path d="M0,0 L12,0 M0,0 L0,12" stroke="#8b5cf6" strokeWidth="0.3" opacity="0.6" />
+                            <pattern id="back-lines" patternUnits="userSpaceOnUse" width="30" height="30">
+                                <path d="M0,0 L30,30 M0,30 L30,0" stroke="#7c3aed" strokeWidth="0.5" opacity="0.3" />
                             </pattern>
                         </defs>
-                        <rect width="100%" height="100%" fill="url(#back-diagonal)" />
-                        <rect width="100%" height="100%" fill="url(#back-grid)" />
+                        <rect width="100%" height="100%" fill="url(#back-lines)" />
                     </svg>
                 </div>
 
-                {/* Large watermark */}
-                <div className="absolute inset-0 opacity-10">
-                    <div className="w-full h-full flex items-center justify-center">
-                        <div className="text-6xl font-bold text-purple-800 transform rotate-45 select-none">
-                            <img src={lion} className='w' />
+                {/* Content */}
+                <div className="relative z-10 h-full">
+                    {/* Header */}
+                    <div className="text-center mb-1 border-b-2 border-fuchsia-900">
+                        <div className="text-lg font-bold text-purple-700 pt-4 mb-1">
+                            RÉPUBLIQUE DÉMOCRATIQUE DU CONGO
+                        </div>
+                        <div className="text-base font-bold text-black-800 mb-2">
+                            CERTIFICAT D'IMMATRICULATION
+                        </div>
+                        <div className="text-sm font-semibold text-black-700">
+                            IDENTIFICATION DU PROPRIÉTAIRE
+                        </div>
+                       
+                    </div>
+
+                    {/* Main content grid */}
+                    <div>
+                        <div className='text-center'>
+                             <div className="text-sm text-black-600 mt-1 font-bold">
+                            DGI00/2022/001990594
+                        </div>
+                        </div>
+                      <div className="grid grid-cols-3 gap-4 mb-4">
+                        {/* Left column - Owner info */}
+                        <div className="col-span-2 space-y-2 p-4">
+                            <div className="flex">
+                                <span className="text-sm text-black-900 uppercase">Noms (ou Rais. Soc.):</span>
+                                <span className="text-sm font-semibold text-black">{formData.proprietaire || 'Mr BAGAYAMUKWE TADJI GUSTAVE'}</span>
+                            </div>
+                            <div className="flex">
+                                <span className="text-sm text-black-900 uppercase">Adresse Phys:</span>
+                                <span className="text-sm font-semibold text-black">{formData.adresse || 'DU PLATEAU Q/Nyalukemba CIBANDA BUKAVU'}</span>
+                            </div>
+                            <div className="flex">
+                                <span className="text-sm  text-black-900 uppercase">N° Impôt:</span>
+                                <span className="text-sm font-semibold text-black">{formData.numeroImmatriculation || 'A2036989D'}</span>
+                            </div>
+                            <div className="flex">
+                                <span className="text-sm uppercase text-black-900">Date de 1ère Mise en Circ.:</span>
+                                <span className="text-sm font-semibold text-black">{formData.dateImmatriculation || '2022'}</span>
+                            </div>
+                            <div className="flex">
+                                <span className="text-sm uppercase text-black-900">Usage:</span>
+                                <span className="text-sm font-semibold text-black">{formData.usage}</span>
+                            </div>
+                            <div className="flex">
+                                <span className="text-sm uppercase text-black-900">N° Plaque:</span>
+                                <span className="text-sm font-semibold text-black">{formData.numeroPlaque || '0830AE22'}</span>
+                            </div>
+                            <div className="mt-4">
+                                <span className="text-sm text-black">Fait à Bukavu, le {new Date().toLocaleDateString('fr-FR')}</span>
+                            </div>
+                        </div>
+
+                        {/* Right column - QR code and stamp */}
+                        <div className="flex flex-col items-center justify-between">
+                            {/* QR Code */}
+                            <div className="flex flex-col items-center mb-4">
+                                <div className="w-28 h-28 bg-white border border-fuchsia-800 flex items-center justify-center p-1">
+                                    {qrCodeUrl ? (
+                                        <img
+                                            src={qrCodeUrl}
+                                            alt="QR Code"
+                                            className="w-full h-full object-contain"
+                                            crossOrigin="anonymous"
+                                        />
+                                    ) : (
+                                        <div className="w-full h-full bg-gray-200 flex items-center justify-center text-gray-500 text-sm">
+                                            QR
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                            <div className="flex flex-col items-center mb-4">
+                                <div className="w-20 h-20  flex items-center justify-center p-1">
+                                    <div className="absolute flex items-center justify-center opacity-60">
+                                    <img src={dgiLogo} className="w-32 h-32" alt="DGI in stamp" />
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>  
+                    </div>
+                    
+
+                    {/* Footer */}
+                    <div className="mt-8 text-center">
+                        <div className="text-sm text-fuchsia-800 font-medium">
+                            Pour toute vérification, contactez la Direction Générale des Impôts
                         </div>
                     </div>
                 </div>
+            </div>
+        );
+    };
+    const CardBack = () => {
 
-                {/* Content */}
-                <div className="relative z-10 h-full flex flex-col items-center justify-center p-4">
-                    <div className="text-center mb-8">
-                        <div className="text-2xl font-bold text-purple-800 mb-2 tracking-wide">
-                            RÉPUBLIQUE DÉMOCRATIQUE DU CONGO
-                        </div>
-                        <div className="text-lg font-semibold text-purple-700">
-                            MINISTÈRE DES TRANSPORTS ET VOIES DE COMMUNICATION
+        return (
+            <div className="relative bg-gradient-to-br from-fuchsia-100 via-fuchsia-200 to-fuchsia-100 overflow-hidden shadow-lg rounded-xl"
+                style={{
+                    width: '650px',
+                    height: '450px',
+                    fontFamily: 'Arial, sans-serif'
+                }}>
+
+                {/* Enhanced background patterns */}
+                <div className="absolute inset-0 opacity-20">
+                    <svg width="100%" height="100%">
+                        <defs>
+                            <pattern id="diagonal-lines" patternUnits="userSpaceOnUse" width="20" height="20">
+                                <path d="M0,20 L20,0" stroke="#8b5cf6" strokeWidth="0.8" opacity="0.3" />
+                            </pattern>
+                            <pattern id="dots" patternUnits="userSpaceOnUse" width="10" height="10">
+                                <circle cx="5" cy="5" r="0.5" fill="#7c3aed" opacity="0.2" />
+                            </pattern>
+                            <pattern id="diamonds" patternUnits="userSpaceOnUse" width="15" height="15">
+                                <path d="M0,7.5 L7.5,0 L15,7.5 L7.5,15 Z" fill="none" stroke="#6d28d9" strokeWidth="0.5" opacity="0.2" />
+                            </pattern>
+                            <pattern id="waves" patternUnits="userSpaceOnUse" width="40" height="20">
+                                <path d="M0,10 Q10,15 20,10 T40,10" fill="none" stroke="#9333ea" strokeWidth="0.5" opacity="0.1" />
+                            </pattern>
+                        </defs>
+                        <rect width="100%" height="100%" fill="url(#diagonal-lines)" />
+                        <rect width="100%" height="100%" fill="url(#dots)" />
+                        <rect width="100%" height="100%" fill="url(#diamonds)" />
+                        <rect width="100%" height="100%" fill="url(#waves)" />
+                    </svg>
+                </div>
+
+                {/* DGI Logo positioned to span both header and main section */}
+                <div className="absolute top-0 right-4 z-30 bg-opacity-30 rounded-full flex items-center justify-center shadow-inner backdrop-blur-lg"
+                    style={{
+                        width: '128px',
+                        height: '128px',
+                        top: '0.75rem' // Position so 30% is in header (4rem height)
+                    }}>
+                    <img src={dgiLogo} className="w-32 h-32 opacity-100" alt="DGI Logo" />
+                </div>
+
+                {/* Header section with reduced height */}
+                <div className="relative text-black p-3 flex items-center justify-between h-16 border-b-2 border-fuchsia-800">
+                    <div className="text-lg font-bold tracking-wide">IDENTIFICATION DU VEHICULE</div>
+                    {/* Logo space reserved but logo is positioned absolutely */}
+                    <div style={{ width: '128px' }}></div>
+                </div>
+
+                {/* Main content */}
+                <div className="relative z-10">
+                    <div className="grid grid-cols-1 gap-6 p-2 relative z-20" style={{ paddingRight: '140px' }}>
+                        <div className="space-y-1">
+                            <div className="flex items-start gap-2">
+                                <span className="font-bold text-sm text-black-900">MARQUE & TYPE:</span>
+                                <span className="text-sm font-medium text-black">{formData.marqueType || 'TOYOTA LAND CRUISER'}</span>
+                            </div>
+                            <div className="flex items-start gap-2">
+                                <span className="font-bold text-sm text-black-900">GENRE:</span>
+                                <span className="text-sm font-medium text-black">{formData.genre || 'JEEP'}</span>
+                            </div>
+                            <div className="flex items-start gap-2">
+                                <span className="font-bold text-sm text-black-900">N° CHASSIS:</span>
+                                <span className="text-sm font-medium text-black">{formData.numeroChassis || 'JTEBZ29J400012394'}</span>
+                            </div>
+                            <div className="flex items-start gap-2">
+                                <span className="font-bold text-sm text-black-900">N° MOTEUR:</span>
+                                <span className="text-sm font-medium text-black">{formData.numeroMoteur || ''}</span>
+                            </div>
+
+                            <div className="flex items-start gap-2">
+                                <span className="font-bold text-sm text-black-900">ANNEE DE FABRICATION:</span>
+                                <span className="text-sm font-medium text-black">{formData.anneeFabrication || '2008'}</span>
+                            </div>
+                            <div className="flex items-start gap-2">
+                                <span className="font-bold text-sm text-black-900">COULEUR:</span>
+                                <span className="text-sm font-medium text-black">{formData.couleur || 'BLANCHE'}</span>
+                            </div>
+                            <div className="flex items-start gap-2">
+                                <span className="font-bold text-sm text-black-900">PUISSANCE FISCALE:</span>
+                                <span className="text-sm font-medium text-black">{formData.puissanceFiscale || '14'}</span>
+                            </div>
                         </div>
                     </div>
 
-                    {/* QR Code section */}
-                    <div className="flex flex-col items-center mb-8">
-                        <div className="w-32 h-32 bg-white border-2 border-purple-500 flex items-center justify-center mb-4 p-2 shadow-inner">
-                            {qrCodeUrl ? (
-                                <img
-                                    src={qrCodeUrl}
-                                    alt="QR Code for vehicle verification"
-                                    className="w-full h-full object-contain"
-                                    crossOrigin="anonymous"
-                                />
-                            ) : (
-                                <div className="w-28 h-28 bg-gray-200 flex items-center justify-center text-gray-500 text-xs">
-                                    Loading QR
+                    {/* Important remarks section */}
+                    <div className="mt-1">
+                        <div className="text-black text-center font-bold text-sm border-b-2 border-t-2 border-fuchsia-800">
+                            REMARQUES IMPORTANTES
+                        </div>
+                        <div className="bg-white bg-opacity-90 border-2 border-fuchsia-900 p-3 relative m-3">
+                            <div className="absolute inset-0 opacity-5">
+                                <svg width="100%" height="100%">
+                                    <defs>
+                                        <pattern id="remarks-pattern" patternUnits="userSpaceOnUse" width="10" height="10">
+                                            <circle cx="5" cy="5" r="1" fill="#8b5cf6" />
+                                        </pattern>
+                                    </defs>
+                                    <rect width="100%" height="100%" fill="url(#remarks-pattern)" />
+                                </svg>
+                            </div>
+
+                            <div className="relative flex flex-col z-10 text-sm text-black">
+                                <div className="flex">
+                                    <div className="w-[70%] pr-4">
+                                        <p className="mb-2 text-xs">
+                                            En cas de vente du présent du véhicule, le cessionnaire et le cédant
+                                            doivent se rendre dans nos services avec: attestation de vente,
+                                            cette carte d'identification, la carte d'assurance, identité
+                                            complète du Responsable du Service de Transport.
+                                            Cette carte doit être REMISE de la main à la main du cédant au
+                                            cessionnaire lors de la cession.
+                                            A cette date, le cessionnaire doit à avoir validé et présenté certifié aux
+                                            fins de vérification, cette carte et les numéros du coupé et du
+                                            châssis pour éviter le trafic clandestin.
+                                        </p>
+                                    </div>
+                                    <div className="w-[30%] relative">
+                                        <div className="absolute top-0 right-0 opacity-10">
+                                            <img src={dgiLogo} className="w-8 h-8" alt="Small DGI Logo" />
+                                        </div>
+                                        <div className="flex justify-between items-end mt-4">
+                                            <div className="flex-1">
+                                                <div className="text-sm font-bold mb-1 text-black-900">Responsable du service</div>
+                                                <div className="text-lg font-bold text-black mb-2">{formData.responsableService || 'CHIRIBAGULA'}</div>
+                                                <div className="w-32 h-12 border-2 border-fuchsia-900 bg-white flex items-center justify-center relative">
+                                                    {formData.signature ? (
+                                                        <img src={formData.signature} alt="Signature" className="w-full h-full object-contain p-1" />
+                                                    ) : (
+                                                        <div className="text-sm text-gray-500 italic">Signature</div>
+                                                    )}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            )}
-                        </div>
-                        <div className="text-sm font-mono tracking-wider text-purple-900 font-bold">
-                            {formData.numeroChassis || 'JTEBZ29J400012394'}
-                        </div>
-                        <div className="text-xs text-purple-700 mt-1 font-medium">
-                            Scanner pour vérification
-                        </div>
-                    </div>
-
-                    {/* Footer information */}
-                    <div className="text-center text-purple-800">
-                        <div className="text-sm font-bold mb-2">
-                            DIRECTION GÉNÉRALE DES TRANSPORTS TERRESTRES
-                        </div>
-                        <div className="text-xs font-medium">
-                            Pour toute vérification, contactez nos services
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -476,10 +350,86 @@ const VehicleIdGenerator = () => {
                     <div className="bg-white shadow-lg rounded-lg p-6">
                         <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
                             <FileText className="w-5 h-5" />
-                            Informations du Véhicule
+                            Informations du Véhicule et Propriétaire
                         </h2>
 
                         <div className="space-y-4">
+                            <div className="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">Propriétaire</label>
+                                    <input
+                                        type="text"
+                                        name="proprietaire"
+                                        value={formData.proprietaire}
+                                        onChange={handleInputChange}
+                                        className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-fuchsia-500 focus:border-transparent"
+                                        placeholder="Mr BAGAYAMUKWE TADJI GUSTAVE"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">N° Immatriculation</label>
+                                    <input
+                                        type="text"
+                                        name="numeroImmatriculation"
+                                        value={formData.numeroImmatriculation}
+                                        onChange={handleInputChange}
+                                        className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-fuchsia-500 focus:border-transparent"
+                                        placeholder="A2036989D"
+                                    />
+                                </div>
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Adresse Physique</label>
+                                <input
+                                    type="text"
+                                    name="adresse"
+                                    value={formData.adresse}
+                                    onChange={handleInputChange}
+                                    className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-fuchsia-500 focus:border-transparent"
+                                    placeholder="DU PLATEAU Q/Nyalukemba CIBANDA BUKAVU"
+                                />
+                            </div>
+
+                            <div className="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">N° Plaque</label>
+                                    <input
+                                        type="text"
+                                        name="numeroPlaque"
+                                        value={formData.numeroPlaque}
+                                        onChange={handleInputChange}
+                                        className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-fuchsia-500 focus:border-transparent"
+                                        placeholder="0830AE22"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">Date Immatriculation</label>
+                                    <input
+                                        type="text"
+                                        name="dateImmatriculation"
+                                        value={formData.dateImmatriculation}
+                                        onChange={handleInputChange}
+                                        className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-fuchsia-500 focus:border-transparent"
+                                        placeholder="2022"
+                                    />
+                                </div>
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Usage</label>
+                                <select
+                                    name="usage"
+                                    value={formData.usage}
+                                    onChange={handleInputChange}
+                                    className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-fuchsia-500 focus:border-transparent"
+                                >
+                                    <option value="Personnel">Personnel</option>
+                                    <option value="Commercial">Commercial</option>
+                                    <option value="Transport">Transport</option>
+                                </select>
+                            </div>
+
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-1">Marque & Type</label>
                                 <input
@@ -487,7 +437,7 @@ const VehicleIdGenerator = () => {
                                     name="marqueType"
                                     value={formData.marqueType}
                                     onChange={handleInputChange}
-                                    className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                                    className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-fuchsia-500 focus:border-transparent"
                                     placeholder="TOYOTA LAND CRUISER"
                                 />
                             </div>
@@ -500,7 +450,7 @@ const VehicleIdGenerator = () => {
                                         name="genre"
                                         value={formData.genre}
                                         onChange={handleInputChange}
-                                        className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                                        className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-fuchsia-500 focus:border-transparent"
                                         placeholder="JEEP"
                                     />
                                 </div>
@@ -511,7 +461,7 @@ const VehicleIdGenerator = () => {
                                         name="anneeFabrication"
                                         value={formData.anneeFabrication}
                                         onChange={handleInputChange}
-                                        className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                                        className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-fuchsia-500 focus:border-transparent"
                                         placeholder="2008"
                                     />
                                 </div>
@@ -524,7 +474,7 @@ const VehicleIdGenerator = () => {
                                     name="numeroChassis"
                                     value={formData.numeroChassis}
                                     onChange={handleInputChange}
-                                    className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                                    className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-fuchsia-500 focus:border-transparent"
                                     placeholder="JTEBZ29J400012394"
                                 />
                             </div>
@@ -536,7 +486,7 @@ const VehicleIdGenerator = () => {
                                     name="numeroMoteur"
                                     value={formData.numeroMoteur}
                                     onChange={handleInputChange}
-                                    className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                                    className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-fuchsia-500 focus:border-transparent"
                                     placeholder="Numéro de moteur"
                                 />
                             </div>
@@ -549,7 +499,7 @@ const VehicleIdGenerator = () => {
                                         name="couleur"
                                         value={formData.couleur}
                                         onChange={handleInputChange}
-                                        className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                                        className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-fuchsia-500 focus:border-transparent"
                                         placeholder="BLANCHE"
                                     />
                                 </div>
@@ -560,7 +510,7 @@ const VehicleIdGenerator = () => {
                                         name="puissanceFiscale"
                                         value={formData.puissanceFiscale}
                                         onChange={handleInputChange}
-                                        className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                                        className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-fuchsia-500 focus:border-transparent"
                                         placeholder="14"
                                     />
                                 </div>
@@ -573,7 +523,7 @@ const VehicleIdGenerator = () => {
                                     name="responsableService"
                                     value={formData.responsableService}
                                     onChange={handleInputChange}
-                                    className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                                    className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-fuchsia-500 focus:border-transparent"
                                     placeholder="CHIRIBAGULA"
                                 />
                             </div>
@@ -590,9 +540,9 @@ const VehicleIdGenerator = () => {
                                     />
                                     <label
                                         htmlFor="signature-upload"
-                                        className="flex items-center gap-2 px-4 py-2 bg-purple-500 text-white rounded-md hover:bg-purple-600 cursor-pointer transition-colors"
+                                        className="flex items-center gap-2 px-4 py-2 bg-fuchsia-900 text-white rounded-md hover:bg-fuchsia-600 cursor-pointer transition-colors"
                                     >
-                                        <Car className="w-4 h-4" />
+                                        <LockIcon className="w-4 h-4" />
                                         Choisir Signature
                                     </label>
                                     {signaturePreview && (
@@ -603,7 +553,7 @@ const VehicleIdGenerator = () => {
 
                             <button
                                 onClick={handlePrint}
-                                className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors"
+                                className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-fuchsia-800 text-white rounded-md hover:bg-fuchsia-700 transition-colors"
                             >
                                 <Printer className="w-4 h-4" />
                                 Imprimer la Carte
