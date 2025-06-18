@@ -64,23 +64,34 @@ const VehicleIdGenerator = () => {
                 fontFamily: 'Arial, sans-serif'
             }}>
 
-            {/* Complex background pattern overlay */}
-            <div className="absolute inset-0 opacity-30">
+            {/* Enhanced background patterns */}
+            <div className="absolute inset-0 opacity-20">
                 <svg width="100%" height="100%">
                     <defs>
-                        <pattern id="diagonal-lines" patternUnits="userSpaceOnUse" width="4" height="4">
-                            <path d="M0,4 L4,0" stroke="#8b5cf6" strokeWidth="0.5" opacity="0.3" />
+                        {/* Subtle diagonal lines */}
+                        <pattern id="diagonal-lines" patternUnits="userSpaceOnUse" width="20" height="20">
+                            <path d="M0,20 L20,0" stroke="#8b5cf6" strokeWidth="0.8" opacity="0.3" />
                         </pattern>
-                        <pattern id="dots" patternUnits="userSpaceOnUse" width="8" height="8">
-                            <circle cx="4" cy="4" r="0.5" fill="#8b5cf6" opacity="0.2" />
+
+                        {/* Fine dot grid */}
+                        <pattern id="dots" patternUnits="userSpaceOnUse" width="10" height="10">
+                            <circle cx="5" cy="5" r="0.5" fill="#7c3aed" opacity="0.2" />
                         </pattern>
-                        <pattern id="crosshatch" patternUnits="userSpaceOnUse" width="6" height="6">
-                            <path d="M0,0 L6,6 M0,6 L6,0" stroke="#7c3aed" strokeWidth="0.3" opacity="0.4" />
+
+                        {/* Diamond pattern */}
+                        <pattern id="diamonds" patternUnits="userSpaceOnUse" width="15" height="15">
+                            <path d="M0,7.5 L7.5,0 L15,7.5 L7.5,15 Z" fill="none" stroke="#6d28d9" strokeWidth="0.5" opacity="0.2" />
+                        </pattern>
+
+                        {/* Wavy lines */}
+                        <pattern id="waves" patternUnits="userSpaceOnUse" width="40" height="20">
+                            <path d="M0,10 Q10,15 20,10 T40,10" fill="none" stroke="#9333ea" strokeWidth="0.5" opacity="0.1" />
                         </pattern>
                     </defs>
                     <rect width="100%" height="100%" fill="url(#diagonal-lines)" />
                     <rect width="100%" height="100%" fill="url(#dots)" />
-                    <rect width="100%" height="100%" fill="url(#crosshatch)" />
+                    <rect width="100%" height="100%" fill="url(#diamonds)" />
+                    <rect width="100%" height="100%" fill="url(#waves)" />
                 </svg>
             </div>
 
@@ -104,7 +115,6 @@ const VehicleIdGenerator = () => {
             </div>
 
             <div className="relative z-10">
-
                 <div className="grid grid-cols-2 gap-6 p-4 relative z-20">
                     <div className="space-y-3">
                         <div className="flex items-start">
@@ -141,12 +151,12 @@ const VehicleIdGenerator = () => {
                     </div>
                 </div>
 
-                {/* Important remarks section with background DGI watermark */}
+                {/* Important remarks section */}
                 <div className="mt-1">
                     <div className="text-black text-center font-bold text-sm border-b-2 border-t-2 border-purple-800">
                         REMARQUES IMPORTANTES
                     </div>
-                    <div className="bg-white bg-opacity-90 border-2 border-purple-500 p-3 relative m-4">
+                    <div className="bg-white bg-opacity-90 border-2 border-purple-500 p-3 relative m-3">
 
                         {/* Background pattern for remarks section */}
                         <div className="absolute inset-0 opacity-5">
@@ -182,11 +192,7 @@ const VehicleIdGenerator = () => {
                                 <div className="w-[30%] relative">
                                     {/* Small DGI logo in signature area */}
                                     <div className="absolute top-0 right-0 opacity-10">
-                                        <img
-                                            src={DGI}
-                                            className="w-12 h-12 transform rotate-12"
-                                            alt="Small DGI Logo"
-                                        />
+                                        <img src={DGI} size={1} />
                                     </div>
 
                                     <div className="flex justify-between items-end mt-4">
@@ -210,6 +216,161 @@ const VehicleIdGenerator = () => {
             </div>
         </div>
     );
+
+    // const CardFront = () => (
+    //     <div className="relative bg-gradient-to-br from-purple-200 via-purple-300 to-purple-400 border border-purple-500 overflow-hidden shadow-lg rounded-lg"
+    //         style={{
+    //             width: '650px',
+    //             height: '500px',
+    //             fontFamily: 'Arial, sans-serif'
+    //         }}>
+
+    //         {/* Complex background pattern overlay */}
+    //         <div className="absolute inset-0 opacity-30">
+    //             <svg width="100%" height="100%">
+    //                 <defs>
+    //                     <pattern id="diagonal-lines" patternUnits="userSpaceOnUse" width="4" height="4">
+    //                         <path d="M0,4 L4,0" stroke="#8b5cf6" strokeWidth="0.5" opacity="0.3" />
+    //                     </pattern>
+    //                     <pattern id="dots" patternUnits="userSpaceOnUse" width="8" height="8">
+    //                         <circle cx="4" cy="4" r="0.5" fill="#8b5cf6" opacity="0.2" />
+    //                     </pattern>
+    //                     <pattern id="crosshatch" patternUnits="userSpaceOnUse" width="6" height="6">
+    //                         <path d="M0,0 L6,6 M0,6 L6,0" stroke="#7c3aed" strokeWidth="0.3" opacity="0.4" />
+    //                     </pattern>
+    //                 </defs>
+    //                 <rect width="100%" height="100%" fill="url(#diagonal-lines)" />
+    //                 <rect width="100%" height="100%" fill="url(#dots)" />
+    //                 <rect width="100%" height="100%" fill="url(#crosshatch)" />
+    //             </svg>
+    //         </div>
+
+    //         {/* Watermark pattern */}
+    //         <div className="absolute inset-0 opacity-10">
+    //             <div className="w-full h-full flex items-center justify-center">
+    //                 <div className="text-6xl font-bold text-purple-800 transform rotate-45 select-none">
+    //                     <img src={lion} />
+    //                 </div>
+    //             </div>
+    //         </div>
+
+    // {/* Header section */}
+    // <div className="relative text-black p-3 flex items-center justify-between">
+    //     <div className="text-lg font-bold tracking-wide">IDENTIFICATION DU VEHICULE</div>
+
+    //     {/* Larger circular logo on the right with blend effect */}
+    //     <div className="bg-opacity-30 rounded-full flex items-center justify-center border-2 border-purple-300 shadow-inner backdrop-blur-sm">
+    //         <img src={DGI} className="w-32 h-32 opacity-80" />
+    //     </div>
+    // </div>
+
+    //         <div className="relative z-10">
+
+    //             <div className="grid grid-cols-2 gap-6 p-4 relative z-20">
+    //                 <div className="space-y-3">
+    //                     <div className="flex items-start">
+    //                         <span className="font-bold text-sm w-32 text-purple-900">MARQUE & TYPE:</span>
+    //                         <span className="text-sm font-medium text-black">{formData.marqueType || 'TOYOTA LAND CRUISER'}</span>
+    //                     </div>
+    //                     <div className="flex items-start">
+    //                         <span className="font-bold text-sm w-32 text-purple-900">GENRE:</span>
+    //                         <span className="text-sm font-medium text-black">{formData.genre || 'JEEP'}</span>
+    //                     </div>
+    //                     <div className="flex items-start">
+    //                         <span className="font-bold text-sm w-32 text-purple-900">N° CHASSIS:</span>
+    //                         <span className="text-sm font-medium text-black">{formData.numeroChassis || 'JTEBZ29J400012394'}</span>
+    //                     </div>
+    //                     <div className="flex items-start">
+    //                         <span className="font-bold text-sm w-32 text-purple-900">N° MOTEUR:</span>
+    //                         <span className="text-sm font-medium text-black">{formData.numeroMoteur || ''}</span>
+    //                     </div>
+    //                 </div>
+
+    //                 <div className="space-y-3">
+    //                     <div className="flex items-start">
+    //                         <span className="font-bold text-sm w-40 text-purple-900">ANNEE DE FABRICATION:</span>
+    //                         <span className="text-sm font-medium text-black">{formData.anneeFabrication || '2008'}</span>
+    //                     </div>
+    //                     <div className="flex items-start">
+    //                         <span className="font-bold text-sm w-40 text-purple-900">COULEUR:</span>
+    //                         <span className="text-sm font-medium text-black">{formData.couleur || 'BLANCHE'}</span>
+    //                     </div>
+    //                     <div className="flex items-start">
+    //                         <span className="font-bold text-sm w-40 text-purple-900">PUISSANCE FISCALE:</span>
+    //                         <span className="text-sm font-medium text-black">{formData.puissanceFiscale || '14'}</span>
+    //                     </div>
+    //                 </div>
+    //             </div>
+
+    //             {/* Important remarks section with background DGI watermark */}
+    //             <div className="mt-1">
+    //                 <div className="text-black text-center font-bold text-sm border-b-2 border-t-2 border-purple-800">
+    //                     REMARQUES IMPORTANTES
+    //                 </div>
+    //                 <div className="bg-white bg-opacity-90 border-2 border-purple-500 p-3 relative m-4">
+
+    //                     {/* Background pattern for remarks section */}
+    //                     <div className="absolute inset-0 opacity-5">
+    //                         <svg width="100%" height="100%">
+    //                             <defs>
+    //                                 <pattern id="remarks-pattern" patternUnits="userSpaceOnUse" width="10" height="10">
+    //                                     <circle cx="5" cy="5" r="1" fill="#8b5cf6" />
+    //                                 </pattern>
+    //                             </defs>
+    //                             <rect width="100%" height="100%" fill="url(#remarks-pattern)" />
+    //                         </svg>
+    //                     </div>
+
+    //                     <div className="relative flex flex-col z-10 text-xs text-black">
+    //                         <div className="flex">
+    //                             {/* Left column (70%) */}
+    //                             <div className="w-[70%] pr-4">
+    //                                 <p className="mb-2">
+    //                                     En cas de vente du présent du véhicule, le cessionnaire et le cédant
+    //                                     doivent se rendre dans nos services avec: attestation de vente,
+    //                                     cette carte d'identification, la carte d'assurance, identité
+    //                                     complète du Responsable du Service de Transport.
+    //                                     Cette carte doit être REMISE de la main à la main du cédant au
+    //                                     cessionnaire lors de la cession.
+    //                                     A cette date, le cessionnaire doit à avoir validé et présenté certifié aux
+    //                                     fins de vérification, cette carte et les numéros du coupé et du
+    //                                     châssis pour éviter le trafic clandestin.
+    //                                 </p>
+    //                             </div>
+    //                             <hr size={3} />
+
+    //                             {/* Right column (30%) with small DGI logo */}
+    //                             <div className="w-[30%] relative">
+    //                                 {/* Small DGI logo in signature area */}
+    //                                 <div className="absolute top-0 right-0 opacity-10">
+    //                                     <img
+    //                                         src={DGI}
+    //                                         className="w-12 h-12 transform rotate-12"
+    //                                         alt="Small DGI Logo"
+    //                                     />
+    //                                 </div>
+
+    //                                 <div className="flex justify-between items-end mt-4">
+    //                                     <div className="flex-1">
+    //                                         <div className="text-sm font-bold mb-1 text-purple-900">Responsable du service</div>
+    //                                         <div className="text-lg font-bold text-black mb-2">{formData.responsableService || 'CHIRIBAGULA'}</div>
+    //                                         <div className="w-32 h-12 border-2 border-purple-400 bg-white flex items-center justify-center relative">
+    //                                             {formData.signature ? (
+    //                                                 <img src={formData.signature} alt="Signature" className="w-full h-full object-contain p-1" />
+    //                                             ) : (
+    //                                                 <div className="text-xs text-gray-500 italic">Signature</div>
+    //                                             )}
+    //                                         </div>
+    //                                     </div>
+    //                                 </div>
+    //                             </div>
+    //                         </div>
+    //                     </div>
+    //                 </div>
+    //             </div>
+    //         </div>
+    //     </div>
+    // );
 
     const CardBack = () => {
         const [qrCodeUrl, setQrCodeUrl] = useState('');
