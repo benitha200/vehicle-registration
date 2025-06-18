@@ -121,30 +121,30 @@ const VehicleIdGenerator = () => {
                         </div>
                         <div className="grid grid-cols-3 gap-4 mb-4">
                             {/* Left column - Owner info */}
-                            <div className="col-span-2 space-y-1 gap-2 p-4">
+                            <div className="col-span-2 space-y-3 gap-2 p-4">
                                 <div className="flex items-start gap-2">
-                                    <span className="text-sm text-black-900 uppercase">Noms (ou Rais. Soc.):</span>
-                                    <span className="text-sm font-semibold text-black">{formData.proprietaire || 'Mr BAGAYAMUKWE TADJI GUSTAVE'}</span>
+                                    <span className="text-sm text-black-900 uppercase font-semibold ">Noms (ou Rais. Soc.):</span>
+                                    <span className="text-sm text-black">{formData.proprietaire || 'Mr BAGAYAMUKWE TADJI GUSTAVE'}</span>
                                 </div>
                                 <div className="flex items-start gap-2">
-                                    <span className="text-sm text-black-900 uppercase">Adresse Phys:</span>
-                                    <span className="text-sm font-semibold text-black">{formData.adresse || 'DU PLATEAU Q/Nyalukemba CIBANDA BUKAVU'}</span>
+                                    <span className="text-sm text-black-900 uppercase font-semibold ">Adresse Phys:</span>
+                                    <span className="text-sm text-black">{formData.adresse || 'DU PLATEAU Q/Nyalukemba CIBANDA BUKAVU'}</span>
                                 </div>
                                 <div className="flex items-start gap-2">
-                                    <span className="text-sm  text-black-900 uppercase">N° Impôt:</span>
-                                    <span className="text-sm font-semibold text-black">{formData.numeroImmatriculation || 'A2036989D'}</span>
+                                    <span className="text-sm  text-black-900 uppercas font-semibold ">N° Impôt:</span>
+                                    <span className="text-sm text-black">{formData.numeroImmatriculation || 'A2036989D'}</span>
                                 </div>
                                 <div className="flex items-start gap-2">
-                                    <span className="text-sm uppercase text-black-900">Date de 1ère Mise en Circ.:</span>
-                                    <span className="text-sm font-semibold text-black">{formData.dateImmatriculation || '2022'}</span>
+                                    <span className="text-sm uppercase text-black-900 font-semibold ">Date de 1ère Mise en Circ.:</span>
+                                    <span className="text-sm text-black">{formData.dateImmatriculation || '2022'}</span>
                                 </div>
                                 <div className="flex items-start gap-2">
-                                    <span className="text-sm uppercase text-black-900">Usage:</span>
-                                    <span className="text-sm font-semibold text-black">{formData.usage}</span>
+                                    <span className="text-sm uppercase text-black-900 font-semibold ">Usage:</span>
+                                    <span className="text-sm text-black">{formData.usage}</span>
                                 </div>
                                 <div className="flex items-start gap-2">
-                                    <span className="text-sm uppercase text-black-900">N° Plaque:</span>
-                                    <span className="text-sm font-semibold text-black">{formData.numeroPlaque || '0830AE22'}</span>
+                                    <span className="text-sm uppercase text-black-900 font-semibold ">N° Plaque:</span>
+                                    <span className="text-sm text-black">{formData.numeroPlaque || '0830AE22'}</span>
                                 </div>
                                 <div className="mt-4">
                                     <span className="text-sm text-black">Fait à Bukavu, le {new Date().toLocaleDateString('fr-FR')}</span>
